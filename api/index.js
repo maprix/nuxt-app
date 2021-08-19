@@ -1,21 +1,21 @@
-import express from 'express';
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
+const dbConfig = require("./config/db.config.js");
 
-app.use(express.json());
+var corsOptions = {
+    origin: "*"
+};
 
-/** 
-* logic for our api will go here
-*/
-app.get('/drafts', async (req, res) => {
-    const posts = await prisma.post.findMany({
-      where: { published: false },
-      include: { author: true }
-    })
-    res.json(posts)
+app.use(cors(corsOptions));
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the backend API" });
 });
 
 export default {
-  path: '/api',
-  handler: app
-};
+    path: '/api',
+    handler: app
+}
