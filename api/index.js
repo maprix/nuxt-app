@@ -36,6 +36,19 @@ app.get("/now", (req, res) => {
     )
 });
 
+app.get("/countries", (req, res) => {  
+    pool
+    .query('SELECT * FROM country')
+    //.query('SELECT * FROM users WHERE id = $1', [1])
+    .then(
+        dbres => res.json({ countries: dbres.rows })
+    )
+    .catch(
+        // add http error here and return db error
+        dberr => setImmediate(() => {throw dberr})
+    )
+});
+
 export default {
     path: '/api',
     handler: app
