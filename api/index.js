@@ -26,7 +26,6 @@ app.get("/", (req, res) => {
 app.get("/now", (req, res) => {  
     pool
     .query('SELECT NOW()')
-    //.query('SELECT * FROM users WHERE id = $1', [1])
     .then(
         dbres => res.json({ time: dbres.rows[0] })
     )
@@ -39,9 +38,23 @@ app.get("/now", (req, res) => {
 app.get("/countries", (req, res) => {  
     pool
     .query('SELECT * FROM country')
-    //.query('SELECT * FROM users WHERE id = $1', [1])
     .then(
         dbres => res.json({ countries: dbres.rows })
+    )
+    .catch(
+        // add http error here and return db error
+        dberr => setImmediate(() => {throw dberr})
+    )
+});
+
+app.get("/country/:id", (req, res) => {  
+
+    var id = req.params.id;
+
+    pool
+    .query('SELECT * FROM country WHERE country_id = $1', [id])
+    .then(
+        dbres => res.json({ country: dbres.rows[0] })
     )
     .catch(
         // add http error here and return db error
