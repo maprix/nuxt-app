@@ -1,8 +1,10 @@
 module.exports = {
     HOST: "localhost",
     USER: "postgres",
-    PASSWORD: "123",
-    DB: "testdb",
+    PASSWORD: "getqw6c5",
+    DB: "dvdrental",
+    PORT: 5432,
+    /*
     dialect: "postgres",
     pool: {
       max: 5,
@@ -10,4 +12,5 @@ module.exports = {
       acquire: 30000,
       idle: 10000
     }
+    */
 };
